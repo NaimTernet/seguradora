@@ -13,6 +13,7 @@ import lombok.Data;
 @SuppressWarnings("serial")
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
