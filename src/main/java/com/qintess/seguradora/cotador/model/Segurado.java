@@ -33,13 +33,13 @@ public class Segurado implements Serializable {
 	@Column(name = "documento", nullable = false)
 	private Long documento;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "segurado")
 	private List<SeguradoTelefone> telefones = Lists.newArrayList();
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "segurado")
 	private List<SeguradoEmail> emails = Lists.newArrayList();
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "segurado")
 	private List<SeguradoEndereco> enderecos = Lists.newArrayList();
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "segurado")
 	private List<Veiculo> veiculos = Lists.newArrayList();
 
 	public void addTelefone(SeguradoTelefone seguradoTelefone) {
