@@ -58,4 +58,8 @@ public class Segurado implements Serializable {
 		seguradoEndereco.setSegurado(this);
 	}
 
+	public void addVeiculo(Veiculo veiculo) {
+		veiculos.add(veiculo);
+		veiculo.setSegurado(this);
+	}
 }
