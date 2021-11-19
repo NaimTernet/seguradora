@@ -52,7 +52,10 @@ public class Segurado implements Serializable {
 		emails.add(seguradoEmail);
 		seguradoEmail.setSegurado(this);
 	}
-	
-	
+
+	public void addEndereco(SeguradoEndereco seguradoEndereco) {
+		enderecos.add(seguradoEndereco);
+		seguradoEndereco.setSegurado(this);
+	}
 
 }
