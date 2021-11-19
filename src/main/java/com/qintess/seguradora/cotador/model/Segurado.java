@@ -10,8 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.google.common.collect.Lists;
 
 import lombok.Data;
 
@@ -30,12 +33,18 @@ public class Segurado implements Serializable {
 	@Column(name = "documento", nullable = false)
 	private Long documento;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	private List<SeguradoTelefone> telefones;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	private List<SeguradoEmail> emails;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	private List<SeguradoEndereco> enderecos;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	private List<Veiculo> veiculos;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<SeguradoTelefone> telefones =Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<SeguradoEmail> emails =Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<SeguradoEndereco> enderecos =Lists.newArrayList();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Veiculo> veiculos =Lists.newArrayList();
+	
+	public void addTelefone(SeguradoTelefone seguradoTelefone) {
+		telefones.add(seguradoTelefone);
+		seguradoTelefone.setSegurado(this);
+	}
+	
 }

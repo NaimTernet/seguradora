@@ -45,7 +45,7 @@ public class SeguradoController {
 			return ResponseEntity.ok(seguradoRepository.save(segurado));
 		} catch (NestedRuntimeException e) {
 			String message = e.getRootCause().getMessage();
-			return ResponseEntity.internalServerError().body(message+ " - "+ ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
 			return ResponseEntity.internalServerError().body(e);
 		}
