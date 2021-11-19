@@ -3,6 +3,7 @@ package com.qintess.seguradora.cotador.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qintess.seguradora.cotador.model.Segurado;
+import com.qintess.seguradora.cotador.model.SeguradoTelefone;
 import com.qintess.seguradora.cotador.repository.SeguradoRepository;
 import com.qintess.seguradora.cotador.service.SeguradoService;
 
@@ -30,17 +32,14 @@ public class SeguradoController {
 		return seguradoService.findAll();
 	}
 
-	//atualizar
-	// criar pesquisa por documento "cpf"
 	@GetMapping("/segurado/{documento}")
 	public List<Segurado> listaCotadorDocumento(@PathVariable(value = "documento") long documento) {
 		return seguradoRepository.findBydocumento(documento);
 	}
 
-//
 	@PostMapping("/segurado")
-	public Segurado salvaCotador(@RequestBody Segurado segurado) {
-		return seguradoRepository.save(segurado);
+	public ResponseEntity<?> salvaSegurado(@RequestBody Segurado segurado) {
+		return ResponseEntity.ok(seguradoRepository.save(segurado));
 	}
 
 	@DeleteMapping("/segurado")
@@ -52,7 +51,7 @@ public class SeguradoController {
 	// criar um service
 	@PutMapping("/segurado")
 	public Segurado atualizarSegurado(@RequestBody Segurado segurado) {
-		//substituir pelo Service
+		// substituir pelo Service
 		return seguradoRepository.save(segurado);
 
 	}
