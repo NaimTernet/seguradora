@@ -5,10 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.qintess.seguradora.cotador.model.Segurado;
 
-public interface SeguradoRepository extends JpaRepository<Segurado, Long>{
-	Segurado findById(long id);
+public interface SeguradoRepository extends JpaRepository<Segurado, Long> {
 	List<Segurado> findBydocumento(long documento);
-	
-	
-
 }
