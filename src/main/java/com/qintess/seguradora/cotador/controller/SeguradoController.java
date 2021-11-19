@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qintess.seguradora.cotador.dto.SeguradoDto;
 import com.qintess.seguradora.cotador.model.Segurado;
 import com.qintess.seguradora.cotador.model.SeguradoTelefone;
 import com.qintess.seguradora.cotador.repository.SeguradoRepository;
@@ -40,9 +41,10 @@ public class SeguradoController {
 	}
 
 	@PostMapping("/segurado")
-	public ResponseEntity<?> salvaSegurado(@RequestBody Segurado segurado) {
+	public ResponseEntity<?> salvaSegurado(@RequestBody SeguradoDto segurado) {
 		try {
-			return ResponseEntity.ok(seguradoRepository.save(segurado));
+			
+			return ResponseEntity.ok(seguradoService.save(segurado));
 		} catch (NestedRuntimeException e) {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
