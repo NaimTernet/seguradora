@@ -2,7 +2,9 @@ package com.qintess.seguradora.cotador.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +41,15 @@ public class SeguradoController {
 
 	@PostMapping("/segurado")
 	public ResponseEntity<?> salvaSegurado(@RequestBody Segurado segurado) {
-		return ResponseEntity.ok(seguradoRepository.save(segurado));
+		try {
+			return ResponseEntity.ok(seguradoRepository.save(segurado));
+		} catch (NestedRuntimeException e) {
+			String message = e.getRootCause().getMessage();
+			return ResponseEntity.internalServerError().body(message+ " - "+ ExceptionUtils.getStackTrace(e));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e);
+		}
+
 	}
 
 	@DeleteMapping("/segurado")
