@@ -34,17 +34,25 @@ public class Segurado implements Serializable {
 	private Long documento;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<SeguradoTelefone> telefones =Lists.newArrayList();
+	private List<SeguradoTelefone> telefones = Lists.newArrayList();
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<SeguradoEmail> emails =Lists.newArrayList();
+	private List<SeguradoEmail> emails = Lists.newArrayList();
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<SeguradoEndereco> enderecos =Lists.newArrayList();
+	private List<SeguradoEndereco> enderecos = Lists.newArrayList();
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Veiculo> veiculos =Lists.newArrayList();
-	
+	private List<Veiculo> veiculos = Lists.newArrayList();
+
 	public void addTelefone(SeguradoTelefone seguradoTelefone) {
 		telefones.add(seguradoTelefone);
 		seguradoTelefone.setSegurado(this);
+
+	}
+
+	public void addEmail(SeguradoEmail seguradoEmail) {
+		emails.add(seguradoEmail);
+		seguradoEmail.setSegurado(this);
 	}
 	
+	
+
 }
