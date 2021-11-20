@@ -37,7 +37,7 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e);
+			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
 		}
 	}
 
@@ -49,7 +49,7 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e);
+			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e);
+			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
 		}
 
 	}
@@ -75,9 +75,14 @@ public class SeguradoController {
 //criar regra para nao modificar o id, nome e documento.
 	// criar um service
 	@PutMapping("/segurado")
-	public Segurado atualizarSegurado(@RequestBody Segurado segurado) {
-		// substituir pelo Service
-		return seguradoRepository.save(segurado);
-
+	public ResponseEntity<?> atualizarSegurado(@RequestBody SeguradoDto seguradoDto) {
+		try {
+			return ResponseEntity.ok(seguradoService.save(seguradoDto));
+		} catch (NestedRuntimeException e) {
+			String message = e.getRootCause().getMessage();
+			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
+		}
 	}
 }
