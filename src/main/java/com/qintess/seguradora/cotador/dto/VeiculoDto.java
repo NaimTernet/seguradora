@@ -1,7 +1,6 @@
 package com.qintess.seguradora.cotador.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 
@@ -32,4 +31,9 @@ public class VeiculoDto implements Serializable {
 		return veiculo;
 	}
 
+	public static VeiculoDto toVeiculoDto(Veiculo veiculo) {
+		VeiculoDto veiculoDto = new VeiculoDto();
+		BeanUtils.copyProperties(veiculo, veiculoDto);
+		return veiculoDto;
+	}
 }

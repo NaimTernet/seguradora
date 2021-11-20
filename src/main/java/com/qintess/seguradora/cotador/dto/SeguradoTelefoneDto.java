@@ -21,4 +21,10 @@ public class SeguradoTelefoneDto implements Serializable {
 		seguradoTelefone.setSegurado(segurado);
 		return seguradoTelefone;
 	}
+
+	public static SeguradoTelefoneDto toSeguradoTelefoneDto(SeguradoTelefone seguradoTelefone) {
+		SeguradoTelefoneDto seguradoTelefoneDto = new SeguradoTelefoneDto();
+		BeanUtils.copyProperties(seguradoTelefone, seguradoTelefoneDto);
+		return seguradoTelefoneDto;
+	}
 }

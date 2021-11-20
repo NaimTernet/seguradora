@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qintess.seguradora.cotador.dto.SeguradoDto;
 import com.qintess.seguradora.cotador.model.Segurado;
-import com.qintess.seguradora.cotador.model.SeguradoTelefone;
 import com.qintess.seguradora.cotador.repository.SeguradoRepository;
 import com.qintess.seguradora.cotador.service.SeguradoService;
 
@@ -31,19 +30,19 @@ public class SeguradoController {
 	SeguradoService seguradoService;
 
 	@GetMapping("/segurado")
-	public List<Segurado> listaCotador() {
+	public List<SeguradoDto> listaCotador() {
 		return seguradoService.findAll();
 	}
 
 	@GetMapping("/segurado/{documento}")
 	public List<Segurado> listaCotadorDocumento(@PathVariable(value = "documento") long documento) {
-		return seguradoRepository.findBydocumento(documento);
+		return seguradoRepository.findByDocumento(documento);
 	}
 
 	@PostMapping("/segurado")
 	public ResponseEntity<?> salvaSegurado(@RequestBody SeguradoDto segurado) {
 		try {
-			
+
 			return ResponseEntity.ok(seguradoService.save(segurado));
 		} catch (NestedRuntimeException e) {
 			String message = e.getRootCause().getMessage();

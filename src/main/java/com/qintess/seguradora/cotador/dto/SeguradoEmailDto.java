@@ -21,4 +21,10 @@ public class SeguradoEmailDto implements Serializable {
 		seguradoEmail.setSegurado(segurado);
 		return seguradoEmail;
 	}
+
+	public static SeguradoEmailDto toSeguradoEmailDto(SeguradoEmail seguradoEmail) {
+		SeguradoEmailDto seguradoEmailDto = new SeguradoEmailDto();
+		BeanUtils.copyProperties(seguradoEmail, seguradoEmailDto);
+		return seguradoEmailDto;
+	}
 }

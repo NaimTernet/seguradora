@@ -38,9 +38,28 @@ public class SeguradoDto implements Serializable {
 				enderecos.stream().map(seguradoEnderecoDto -> seguradoEnderecoDto.toSeguradoEndereco(segurado))
 						.collect(Collectors.toList()));
 
-		segurado.setVeiculos(veiculos.stream().map(veiculoDto -> veiculoDto.toVeiculo(segurado))
-				.collect(Collectors.toList()));
+		segurado.setVeiculos(
+				veiculos.stream().map(veiculoDto -> veiculoDto.toVeiculo(segurado)).collect(Collectors.toList()));
 
 		return segurado;
+	}
+
+	public static SeguradoDto toSeguradoDto(Segurado segurado) {
+		SeguradoDto seguradoDto = new SeguradoDto();
+		BeanUtils.copyProperties(segurado, seguradoDto);
+		seguradoDto.setTelefones(segurado.getTelefones().stream()
+				.map(seguradoTelefone -> SeguradoTelefoneDto.toSeguradoTelefoneDto(seguradoTelefone))
+				.collect(Collectors.toList()));
+
+		seguradoDto.setEmails(segurado.getEmails().stream()
+				.map(seguradoEmail -> SeguradoEmailDto.toSeguradoEmailDto(seguradoEmail)).collect(Collectors.toList()));
+
+		seguradoDto.setEnderecos(segurado.getEnderecos().stream()
+				.map(seguradoEndereco -> SeguradoEnderecoDto.toSeguradoEnderecoDto(seguradoEndereco))
+				.collect(Collectors.toList()));
+
+		seguradoDto.setVeiculos(segurado.getVeiculos().stream().map(veiculo-> VeiculoDto.toVeiculoDto(veiculo))
+				.collect(Collectors.toList()));
+		return seguradoDto;
 	}
 }

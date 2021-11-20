@@ -2,6 +2,7 @@ package com.qintess.seguradora.cotador.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ public class SeguradoService {
 	@Autowired
 	private SeguradoRepository seguradoRepository;
 
-	public List<Segurado> findAll() {
-		return seguradoRepository.findAll();
+	public List<SeguradoDto> findAll() {
+		List<SeguradoDto> seguradoDtos = seguradoRepository.findAll().stream()
+				.map(segurado -> SeguradoDto.toSeguradoDto(segurado)).collect(Collectors.toList());
+		return seguradoDtos;
 	}
 
 	public Segurado findById(Long id) {

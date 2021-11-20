@@ -27,4 +27,12 @@ public class SeguradoEnderecoDto implements Serializable {
 		seguradoEndereco.setSegurado(segurado);
 		return seguradoEndereco;
 	}
+	
+	public static SeguradoEnderecoDto toSeguradoEnderecoDto(SeguradoEndereco seguradoEndereco) {
+		SeguradoEnderecoDto seguradoEnderecoDto = new SeguradoEnderecoDto();
+		BeanUtils.copyProperties(seguradoEndereco, seguradoEnderecoDto);
+		return seguradoEnderecoDto;
+	}
+	
+	
 }
