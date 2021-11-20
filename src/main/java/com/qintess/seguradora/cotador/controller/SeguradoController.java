@@ -30,8 +30,15 @@ public class SeguradoController {
 	SeguradoService seguradoService;
 
 	@GetMapping("/segurado")
-	public List<SeguradoDto> listaCotador() {
-		return seguradoService.findAll();
+	public ResponseEntity<?> listaCotador() {
+		try {
+			return ResponseEntity.ok(seguradoService.findAll());
+		} catch (NestedRuntimeException e) {
+			String message = e.getRootCause().getMessage();
+			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e);
+		}
 	}
 
 	@GetMapping("/segurado/{documento}")
