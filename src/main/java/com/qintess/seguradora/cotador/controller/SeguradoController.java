@@ -42,8 +42,15 @@ public class SeguradoController {
 	}
 
 	@GetMapping("/segurado/{documento}")
-	public List<Segurado> listaCotadorDocumento(@PathVariable(value = "documento") long documento) {
-		return seguradoRepository.findByDocumento(documento);
+	public ResponseEntity<?> listaCotadorDocumento(@PathVariable(value = "documento") long documento) {
+		try {
+			return ResponseEntity.ok(seguradoRepository.findByDocumento(documento));
+		} catch (NestedRuntimeException e) {
+			String message = e.getRootCause().getMessage();
+			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e);
+		}
 	}
 
 	@PostMapping("/segurado")
