@@ -51,12 +51,11 @@ public class SeguradoService {
 		}
 	}
 
-	public Segurado delete(Segurado segurado) {
-		// find by id para recuperar o Segurado e verificar se ele ja existe na base
-		// se ele existir na base (validar se o documento e o nome sao os mesmos ja
-		// gravados na base
-		// senao for (se for diferente) retornar uma Exception
-		return seguradoRepository.save(segurado);
+	public SeguradoDto delete(SeguradoDto seguradoDto) {
+		Segurado segurado = seguradoRepository.findById(seguradoDto.getId())
+				.orElseThrow(() -> new RuntimeException("Erro ao buscar segurado pelo ID: " + seguradoDto.getId()));
+		seguradoRepository.delete(segurado);
+		return seguradoDto;
 	}
 
 	public SeguradoDto findByDocumento(long documento) {

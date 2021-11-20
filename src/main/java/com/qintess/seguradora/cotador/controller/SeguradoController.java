@@ -1,7 +1,5 @@
 package com.qintess.seguradora.cotador.controller;
 
-import java.util.List;
-
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NestedRuntimeException;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qintess.seguradora.cotador.dto.SeguradoDto;
-import com.qintess.seguradora.cotador.model.Segurado;
 import com.qintess.seguradora.cotador.repository.SeguradoRepository;
 import com.qintess.seguradora.cotador.service.SeguradoService;
 
@@ -37,7 +34,7 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.internalServerError().body(e.getMessage() + " - " + ExceptionUtils.getStackTrace(e));
 		}
 	}
 
@@ -49,7 +46,7 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.internalServerError().body(e.getMessage() + " - " + ExceptionUtils.getStackTrace(e));
 		}
 	}
 
@@ -62,14 +59,21 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.internalServerError().body(e.getMessage() + " - " + ExceptionUtils.getStackTrace(e));
 		}
 
 	}
 
 	@DeleteMapping("/segurado")
-	public void deletaCotador(@RequestBody Segurado segurado) {
-		seguradoRepository.delete(segurado);
+	public ResponseEntity<?> deletaCotador(@RequestBody SeguradoDto seguradoDto) {
+		try {
+			return ResponseEntity.ok(seguradoService.delete(seguradoDto));
+		} catch (NestedRuntimeException e) {
+			String message = e.getRootCause().getMessage();
+			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body(e.getMessage() + " - " + ExceptionUtils.getStackTrace(e));
+		}
 	}
 
 //criar regra para nao modificar o id, nome e documento.
@@ -82,7 +86,7 @@ public class SeguradoController {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));
 		} catch (Exception e) {
-			return ResponseEntity.internalServerError().body(e.getMessage()+ " - " + ExceptionUtils.getStackTrace(e));
+			return ResponseEntity.internalServerError().body(e.getMessage() + " - " + ExceptionUtils.getStackTrace(e));
 		}
 	}
 }
