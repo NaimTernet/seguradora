@@ -1,10 +1,11 @@
 package com.qintess.seguradora.cotador.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.qintess.seguradora.cotador.model.Segurado;
 
 public interface SeguradoRepository extends JpaRepository<Segurado, Long> {
-	List<Segurado> findByDocumento(long documento);
+	Optional<Segurado> findByDocumento(long documento);
 }

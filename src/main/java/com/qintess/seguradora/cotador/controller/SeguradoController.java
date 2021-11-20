@@ -44,7 +44,7 @@ public class SeguradoController {
 	@GetMapping("/segurado/{documento}")
 	public ResponseEntity<?> listaCotadorDocumento(@PathVariable(value = "documento") long documento) {
 		try {
-			return ResponseEntity.ok(seguradoRepository.findByDocumento(documento));
+			return ResponseEntity.ok(seguradoService.findByDocumento(documento));
 		} catch (NestedRuntimeException e) {
 			String message = e.getRootCause().getMessage();
 			return ResponseEntity.internalServerError().body(message + " - " + ExceptionUtils.getStackTrace(e));

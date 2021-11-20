@@ -67,4 +67,10 @@ public class SeguradoService {
 		return seguradoRepository.save(segurado);
 	}
 
+	public SeguradoDto findByDocumento(long documento) {
+		SeguradoDto seguradoDto = seguradoRepository.findByDocumento(documento).map(segurado -> SeguradoDto.toSeguradoDto(segurado))
+				.orElseThrow(() -> new RuntimeException("Erro ao buscar segurado pelo DOCUMENTO: " + documento));
+		return seguradoDto;
+	}
+
 }
